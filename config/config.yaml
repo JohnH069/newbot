@@ -149,7 +149,7 @@ rss:
 #    • 适用场景：避免重复信息干扰
 # ===============================================================
 report:
-  mode: "daily"                     # 可选: daily | current | incremental
+  mode: "incremental"                     # 可选: daily | current | incremental
                                       # ⚠️ 开启调度系统后，此值会被当前时间段的 report_mode 覆盖
 
 
@@ -185,17 +185,17 @@ display:
   #   1. 在此列表中
   #   2. 下方 regions 中对应开关为 true
   region_order:
+    - ai_analysis                       # 5️⃣ AI 分析区域
     - new_items                       # 1️⃣ 新增热点区域
     - hotlist                       # 2️⃣ 热榜区域（关键词匹配）
     - rss                       # 3️⃣ RSS 订阅区域
     - standalone                       # 4️⃣ 独立展示区
-    - ai_analysis                       # 5️⃣ AI 分析区域
   regions:
+    ai_analysis: true # AI 分析区域
     new_items: true # 新增热点区域（含热榜新增 + RSS 新增）
     hotlist: true # 热榜区域（关键词匹配的热点新闻）
     rss: true # RSS 订阅区域
-    standalone: true # 独立展示区（完整热榜/RSS，不受关键词过滤）
-    ai_analysis: true # AI 分析区域
+    standalone: false # 独立展示区（完整热榜/RSS，不受关键词过滤）
   standalone:
     platforms: ["wallstreetcn-hot","cls-hot","toutiao","thepaper"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
     rss_feeds: ["yahoo-finance","hacker-news","bing_gold","investing","cnbc","bing_ai"] # RSS 源 ID 列表（如 ["hacker-news"]）
@@ -407,7 +407,7 @@ ai_analysis:
   #   - 推送 incremental（避免重复），AI 分析 current（看当前榜单变化）
   #   - 推送 current（实时热点），AI 分析 daily（全天总结）
   #
-  mode: "daily"
+  mode: "incremental"
 
   # 分析内容配置
   max_news_for_analysis: 150        # 热榜+RSS 合计参与分析的新闻数量上限（控制成本关键项）
